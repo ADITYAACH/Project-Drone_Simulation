@@ -1,0 +1,322 @@
+<?xml version="1.0"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot name="drone_again">
+  <!-- Original robot description remains unchanged -->
+  <!-- Previous content remains exactly the same until the last </gazebo> tag -->
+
+  <!-- Add Camera Link and Joint -->
+  <link name="camera_link">
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.05 0.05 0.05"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.05 0.05 0.05"/>
+      </geometry>
+      <material name="blue">
+        <color rgba="0 0 1 1"/>
+      </material>
+    </visual>
+    <inertial>
+      <mass value="0.1"/>
+      <inertia ixx="0.000166667" ixy="0" ixz="0" iyy="0.000166667" iyz="0" izz="0.000166667"/>
+    </inertial>
+  </link>
+
+  <joint name="camera_joint" type="fixed">
+    <origin xyz="0.1 0 0.2" rpy="0 0 0"/>
+    <parent link="base_link"/>
+    <child link="camera_link"/>
+  </joint>
+
+  <!-- Add LiDAR Link and Joint -->
+  <link name="lidar_link">
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.05" length="0.05"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.05" length="0.05"/>
+      </geometry>
+      <material name="green">
+        <color rgba="0 1 0 1"/>
+      </material>
+    </visual>
+    <inertial>
+      <mass value="0.1"/>
+      <inertia ixx="0.000166667" ixy="0" ixz="0" iyy="0.000166667" iyz="0" izz="0.000166667"/>
+    </inertial>
+  </link>
+
+  <joint name="lidar_joint" type="fixed">
+    <origin xyz="-0.1 0 0.25" rpy="0 0 0"/>
+    <parent link="base_link"/>
+    <child link="lidar_link"/>
+  </joint>
+
+  <!-- Add Depth Camera Link and Joint -->
+  <link name="depth_camera_link">
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.05 0.05 0.05"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.05 0.05 0.05"/>
+      </geometry>
+      <material name="red">
+        <color rgba="1 0 0 1"/>
+      </material>
+    </visual>
+    <inertial>
+      <mass value="0.1"/>
+      <inertia ixx="0.000166667" ixy="0" ixz="0" iyy="0.000166667" iyz="0" izz="0.000166667"/>
+    </inertial>
+  </link>
+
+  <joint name="depth_camera_joint" type="fixed">
+    <origin xyz="0 0 -0.1" rpy="0 3.14159 0"/>  <!-- Positioned at the bottom and rotated 180 degrees -->
+    <parent link="base_link"/>
+    <child link="depth_camera_link"/>
+  </joint>
+
+  <!-- Camera Plugin -->
+  <gazebo reference="camera_link">
+    <sensor type="camera" name="camera">
+      <update_rate>30.0</update_rate>
+      <camera name="head">
+        <horizontal_fov>1.3962634</horizontal_fov>
+        <image>
+          <width>800</width>
+          <height>600</height>
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>0.02</near>
+          <far>300</far>
+        </clip>
+        <noise>
+          <type>gaussian</type>
+          <mean>0.0</mean>
+          <stddev>0.007</stddev>
+        </noise>
+      </camera>
+      <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+        <alwaysOn>true</alwaysOn>
+        <updateRate>0.0</updateRate>
+        <cameraName>drone/camera</cameraName>
+        <imageTopicName>image_raw</imageTopicName>
+        <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+        <frameName>camera_link</frameName>
+        <hackBaseline>0.07</hackBaseline>
+        <distortionK1>0.0</distortionK1>
+        <distortionK2>0.0</distortionK2>
+        <distortionK3>0.0</distortionK3>
+        <distortionT1>0.0</distortionT1>
+        <distortionT2>0.0</distortionT2>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+  <!-- LiDAR Plugin -->
+  <gazebo reference="lidar_link">
+    <sensor type="ray" name="lidar">
+      <pose>0 0 0 0 0 0</pose>
+      <visualize>true</visualize>
+      <update_rate>10</update_rate>
+      <ray>
+        <scan>
+          <horizontal>
+            <samples>360</samples>
+            <resolution>1</resolution>
+            <min_angle>-3.14159</min_angle>
+            <max_angle>3.14159</max_angle>
+          </horizontal>
+        </scan>
+        <range>
+          <min>0.3</min>
+          <max>15.0</max>
+          <resolution>0.01</resolution>
+        </range>
+        <noise>
+          <type>gaussian</type>
+          <mean>0.0</mean>
+          <stddev>0.01</stddev>
+        </noise>
+      </ray>
+      <plugin name="lidar_controller" filename="libgazebo_ros_ray_sensor.so">
+        <ros>
+          <namespace>/drone</namespace>
+          <argument>~/out:=scan</argument>
+        </ros>
+        <output_type>sensor_msgs/LaserScan</output_type>
+        <frame_name>lidar_link</frame_name>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+  <!-- Depth Camera Plugin -->
+  <gazebo reference="depth_camera_link">
+    <sensor type="depth" name="depth_camera">
+      <update_rate>20.0</update_rate>
+      <camera name="depth_cam">
+        <horizontal_fov>1.047198</horizontal_fov>
+        <image>
+          <width>640</width>
+          <height>480</height>
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>0.05</near>
+          <far>8.0</far>
+        </clip>
+      </camera>
+      <plugin name="depth_camera_controller" filename="libgazebo_ros_camera.so">
+        <baseline>0.2</baseline>
+        <alwaysOn>true</alwaysOn>
+        <updateRate>0.0</updateRate>
+        <cameraName>drone/depth_camera</cameraName>
+        <imageTopicName>depth/image_raw</imageTopicName>
+        <cameraInfoTopicName>depth/camera_info</cameraInfoTopicName>
+        <frameName>depth_camera_link</frameName>
+        <hackBaseline>0.0</hackBaseline>
+        <distortionK1>0.0</distortionK1>
+        <distortionK2>0.0</distortionK2>
+        <distortionK3>0.0</distortionK3>
+        <distortionT1>0.0</distortionT1>
+        <distortionT2>0.0</distortionT2>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+  <!-- IMU Plugin -->
+  <gazebo reference="base_link">
+    <sensor type="imu" name="imu_sensor">
+      <update_rate>100.0</update_rate>
+      <imu>
+        <orientation>
+          <x>0.0</x>
+          <y>0.0</y>
+          <z>0.0</z>
+          <w>1.0</w>
+        </orientation>
+        <angular_velocity>
+          <x>0.0</x>
+          <y>0.0</y>
+          <z>0.0</z>
+        </angular_velocity>
+        <linear_acceleration>
+          <x>0.0</x>
+          <y>0.0</y>
+          <z>0.0</z>
+        </linear_acceleration>
+      </imu>
+      <plugin name="imu_controller" filename="libgazebo_ros_imu.so">
+        <ros>
+          <namespace>/drone</namespace>
+          <argument>~/out:=imu</argument>
+        </ros>
+        <output_type>sensor_msgs/Imu</output_type>
+        <frame_name>base_link</frame_name>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+  <!-- GPS Plugin -->
+  <gazebo reference="base_link">
+    <sensor type="gps" name="gps_sensor">
+      <update_rate>1.0</update_rate>
+      <gps>
+        <latitude>37.7749</latitude>
+        <longitude>-122.4194</longitude>
+        <altitude>10.0</altitude>
+      </gps>
+      <plugin name="gps_controller" filename="libgazebo_ros_gps.so">
+        <ros>
+          <namespace>/drone</namespace>
+          <argument>~/out:=gps</argument>
+        </ros>
+        <output_type>nav_msgs/NavSatFix</output_type>
+        <frame_name>base_link</frame_name>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+  <!-- Odometry Plugin -->
+  <gazebo reference="base_link">
+    <plugin name="odometry_controller" filename="libgazebo_ros_odometry.so">
+      <ros>
+        <namespace>/drone</namespace>
+        <argument>~/out:=odom</argument>
+      </ros>
+      <frame_name>base_link</frame_name>
+      <child_frame_name>odom</child_frame_name>
+      <update_rate>50</update_rate>
+    </plugin>
+  </gazebo>
+  
+  <gazebo>
+    <plugin name="drone_physics" filename="libgazebo_ros_multirotor.so">
+      <robotNamespace>/drone</robotNamespace>
+      <updateRate>100.0</updateRate>
+      <commandTopic>cmd_vel</commandTopic>
+      <odometryTopic>odom</odometryTopic>
+      <odometryFrame>odom</odometryFrame>
+      <robotBaseFrame>base_link</robotBaseFrame>
+      
+      <!-- Motor configuration -->
+      <motorCount>4</motorCount>
+      <motorMaxForce>30</motorMaxForce>
+      <motorMaxVelocity>1500</motorMaxVelocity>
+      
+      <!-- PID Controllers -->
+      <linearPIDx>
+        <p>10.0</p>
+        <i>0.0</i>
+        <d>5.0</d>
+      </linearPIDx>
+      <linearPIDy>
+        <p>10.0</p>
+        <i>0.0</i>
+        <d>5.0</d>
+      </linearPIDy>
+      <linearPIDz>
+        <p>10.0</p>
+        <i>0.0</i>
+        <d>5.0</d>
+      </linearPIDz>
+      
+      <!-- Individual rotor configuration -->
+      <rotor0>
+        <position>0.85056 0.84991 0.36599</position>
+        <direction>1</direction>
+      </rotor0>
+      <rotor1>
+        <position>0.85056 -0.84715 0.36599</position>
+        <direction>-1</direction>
+      </rotor1>
+      <rotor2>
+        <position>-0.8465 -0.84715 0.36599</position>
+        <direction>1</direction>
+      </rotor2>
+      <rotor3>
+        <position>-0.8465 0.84991 0.36599</position>
+        <direction>-1</direction>
+      </rotor3>
+    </plugin>
+  </gazebo>
+
+</robot>

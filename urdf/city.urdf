@@ -1,0 +1,516 @@
+<?xml version="1.0"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="city">
+  <link
+    name="base">
+    <inertial>
+      <origin
+        xyz="-0.02352 -0.019836 -0.010929"
+        rpy="0 0 0" />
+      <mass
+        value="589930" />
+      <inertia
+        ixx="285450000"
+        ixy="5.3235E-08"
+        ixz="1.3051E-28"
+        iyy="285450000"
+        iyz="0"
+        izz="570900000" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file://$(find drone_simulation)/meshes/base.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file://$(find drone_simulation)/meshes/base.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="building1">
+    <inertial>
+      <origin
+        xyz="3.5713 2.457 5.9513"
+        rpy="0 0 0" />
+      <mass
+        value="433370" />
+      <inertia
+        ixx="14493000"
+        ixy="-3421000"
+        ixz="-336600"
+        iyy="17536000"
+        iyz="-935470"
+        izz="22872000" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file://$(find drone_simulation)/meshes/building1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.23 0.78 0.41 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file://$(find drone_simulation)/meshes/building1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="building1_joint"
+    type="fixed">
+    <origin
+      xyz="-3.7954 7.6002 0.039871"
+      rpy="0 0 0" />
+    <parent
+      link="base" />
+    <child
+      link="building1" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="building2">
+    <inertial>
+      <origin
+        xyz="6.1645E-06 -6.6501E-06 11.796"
+        rpy="0 0 0" />
+      <mass
+        value="480570" />
+      <inertia
+        ixx="23823000"
+        ixy="-1.97E-05"
+        ixz="-29.177"
+        iyy="23823000"
+        iyz="31.604"
+        izz="1834700" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file://$(find drone_simulation)/meshes/building2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.56 0.12 0.93 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file://$(find drone_simulation)/meshes/building2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="building2_joint"
+    type="fixed">
+    <origin
+      xyz="-28.37 -28.366 0.039871"
+      rpy="0 0 0" />
+    <parent
+      link="base" />
+    <child
+      link="building2" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="building3">
+    <inertial>
+      <origin
+        xyz="0.21625 0.13944 8.5574"
+        rpy="0 0 0" />
+      <mass
+        value="435240" />
+      <inertia
+        ixx="27032000"
+        ixy="-1697100"
+        ixz="-1328400"
+        iyy="28019000"
+        iyz="-804500"
+        izz="27087000" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file://$(find drone_simulation)/meshes/building3.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file://$(find drone_simulation)/meshes/building3.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="building3_joint"
+    type="fixed">
+    <origin
+      xyz="21.859 9.3274 0.077971"
+      rpy="0 0 0" />
+    <parent
+      link="base" />
+    <child
+      link="building3" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="building4">
+    <inertial>
+      <origin
+        xyz="-0.27366 0.23283 0.26609"
+        rpy="0 0 0" />
+      <mass
+        value="35919" />
+      <inertia
+        ixx="545830"
+        ixy="-48499"
+        ixz="3553.9"
+        iyy="549120"
+        iyz="-2984.3"
+        izz="1087000" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file://$(find drone_simulation)/meshes/building4.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.17 0.92 0.26 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file://$(find drone_simulation)/meshes/building4.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="building4_joint"
+    type="fixed">
+    <origin
+      xyz="-26.694 6.7874 0.039871"
+      rpy="0 0 0" />
+    <parent
+      link="base" />
+    <child
+      link="building4" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="tree">
+    <inertial>
+      <origin
+        xyz="0.00070021 0.0026145 3.7281"
+        rpy="0 0 0" />
+      <mass
+        value="31124" />
+      <inertia
+        ixx="85613"
+        ixy="-147.45"
+        ixz="544.22"
+        iyy="85822"
+        iyz="-303.12"
+        izz="69680" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file://$(find drone_simulation)/meshes/tree.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0 1 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file://$(find drone_simulation)/meshes/tree.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="tree_joint"
+    type="fixed">
+    <origin
+      xyz="-0.082549 0.381 0.127"
+      rpy="0 0 0" />
+    <parent
+      link="building4" />
+    <child
+      link="tree" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="building5">
+    <inertial>
+      <origin
+        xyz="2.8252 7.3689 5.312"
+        rpy="0 0 0" />
+      <mass
+        value="407290" />
+      <inertia
+        ixx="33108000"
+        ixy="-12139000"
+        ixz="220140"
+        iyy="24258000"
+        iyz="567820"
+        izz="50218000" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file://$(find drone_simulation)/meshes/building5.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.63 0.38 0.71 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file://$(find drone_simulation)/meshes/building5.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="building5_joint"
+    type="fixed">
+    <origin
+      xyz="-2.7064 -28.807 -1.0225"
+      rpy="0 0 0" />
+    <parent
+      link="base" />
+    <child
+      link="building5" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="building6">
+    <inertial>
+      <origin
+        xyz="-0.37274 -0.0049463 11.354"
+        rpy="0 0 0" />
+      <mass
+        value="312910" />
+      <inertia
+        ixx="14996000"
+        ixy="21165"
+        ixz="1196400"
+        iyy="23468000"
+        iyz="-9228.7"
+        izz="14964000" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file://$(find drone_simulation)/meshes/building6.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.32 0.87 0.56 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file://$(find drone_simulation)/meshes/building6.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="building6_joint"
+    type="fixed">
+    <origin
+      xyz="0.97978 29.952 0.039871"
+      rpy="0 0 0" />
+    <parent
+      link="base" />
+    <child
+      link="building6" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="building7">
+    <inertial>
+      <origin
+        xyz="-0.02352 -0.019836 -0.010929"
+        rpy="0 0 0" />
+      <mass
+        value="589930" />
+      <inertia
+        ixx="285450000"
+        ixy="5.3235E-08"
+        ixz="1.3051E-28"
+        iyy="285450000"
+        iyz="0"
+        izz="570900000" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file://$(find drone_simulation)/meshes/building7.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.91 0.23 0.45 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file://$(find drone_simulation)/meshes/building7.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="building7_joint"
+    type="fixed">
+    <origin
+      xyz="-33.044 18.217 0.039871"
+      rpy="0 0 0" />
+    <parent
+      link="base" />
+    <child
+      link="building7" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <gazebo reference="base">
+    <material>Gazebo/Black</material>
+    <selfCollide>true</selfCollide>
+    <gravity>true</gravity>
+  </gazebo>
+  <gazebo reference="building1">
+    <material>Gazebo/White</material>
+    <selfCollide>true</selfCollide>
+    <gravity>true</gravity>
+  </gazebo>
+  <gazebo reference="building2">
+    <material>Gazebo/White</material>
+    <selfCollide>true</selfCollide>
+    <gravity>true</gravity>
+  </gazebo>
+  <gazebo reference="building3">
+    <material>Gazebo/Yellow</material>
+    <selfCollide>true</selfCollide>
+    <gravity>true</gravity>
+  </gazebo>
+  <gazebo reference="building4">
+    <material>Gazebo/White</material>
+    <selfCollide>true</selfCollide>
+    <gravity>true</gravity>
+  </gazebo>
+  <gazebo reference="building5">
+    <material>Gazebo/Orange</material>
+    <selfCollide>true</selfCollide>
+    <gravity>true</gravity>
+  </gazebo>
+  <gazebo reference="building6">
+    <material>Gazebo/White</material>
+    <selfCollide>true</selfCollide>
+    <gravity>true</gravity>
+  </gazebo>
+  <gazebo reference="building7">
+    <material>Gazebo/White</material>
+    <selfCollide>true</selfCollide>
+    <gravity>true</gravity>
+  </gazebo>
+  <gazebo reference="tree">
+    <material>Gazebo/Green</material>
+    <selfCollide>true</selfCollide>
+    <gravity>true</gravity>
+  </gazebo>
+</robot>
