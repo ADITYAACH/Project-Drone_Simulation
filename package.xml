@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>drone_simulation</name>
+  <version>0.0.0</version>
+  <description>TODO: Package description</description>
+  <maintainer email="achanti@todo.todo">achanti</maintainer>
+  <license>TODO: License declaration</license>
+
+  <buildtool_depend>ament_python</buildtool_depend>
+
+  <depend>rclcpp</depend>
+  <depend>rclpy</depend>
+  <depend>sensor_msgs</depend>
+  <depend>robot_state_publisher</depend>
+  <depend>rtabmap_ros</depend>
+  <depend>ament_index_python</depend>
+  <depend>geometry_msgs</depend>
+  <depend>nav_msgs</depend>
+  <depend>gazebo_ros</depend>
+  <depend>gazebo_ros2_control</depend>
+  <depend>joy</depend>
+  <depend>rviz2</depend>
+  <depend>xacro</depend>
+  <depend>launch</depend>
+  <depend>launch_ros</depend>
+  <depend>cartographer_ros</depend>
+  <depend>cartographer</depend>
+  <depend>rtabmap_odom</depend>
+  <depend>rtabmap_slam</depend>
+  <depend>rtabmap_rviz_plugins</depend>
+
+  <exec_depend>xterm</exec_depend>
+
+  <test_depend>ament_copyright</test_depend>
+  <test_depend>ament_flake8</test_depend>
+  <test_depend>ament_pep257</test_depend>
+  <test_depend>python3-pytest</test_depend>
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_lint_common</test_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+    <gazebo_ros gazebo_model_path="${prefix}/models"/>
+  </export>
+</package>
