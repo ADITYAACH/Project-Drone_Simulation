@@ -1,0 +1,91 @@
+# RTAB-Map configuration for drone navigation and mapping
+# Core Parameters
+Grid:
+  CellSize: 0.05          # Resolution of the occupancy grid (meters)
+  RangeMax: 25.0          # Maximum range for grid update (meters)
+  RayTracing: true        # Use ray tracing for grid update
+  
+RGBD:
+  ProximityBySpace: true       # Detection of loop closures by space
+  ProximityByTime: false       # Loop closure detection by time
+  ProximityPathMaxNeighbors: 10
+  NeighborLinkRefining: true   # Refine neighbor links
+  LoopClosureReextractFeatures: true
+  
+# Odometry Parameters
+Odom:
+  Strategy: 1             # 0=Frame-to-Map, 1=Frame-to-Frame
+  FeatureType: 6         # 6=GFTT/ORB
+  MaxFeatures: 1000      # Maximum features extracted per image
+  MinInliers: 20         # Minimum inliers to accept motion
+  KeyFrameThr: 0.3       # Keyframe linear distance threshold (m)
+  ScanKeyFrameThr: 0.3   # Keyframe angular threshold (rad)
+  
+# Visual Parameters
+Vis:
+  MinInliers: 20         # Minimum visual inliers to accept loop closure
+  MinWords: 100          # Minimum word correspondences to accept loop closure
+  NNDR: 0.7             # NNDR threshold for feature matching
+  
+# Registration Parameters
+Reg:
+  Strategy: 1            # 0=Visual, 1=ICP, 2=Visual+ICP
+  Force3DoF: false       # Force 3 degrees of freedom transform
+  LoopClosureReextractFeatures: true
+  
+# ICP Parameters
+ICP:
+  MaxCorrespondenceDistance: 0.1
+  MaxIterations: 30
+  VoxelSize: 0.05
+  Epsilon: 0.001
+  
+# RGB-D Camera Parameters
+Camera:
+  ImageRate: 0           # 0=use ros synchronization
+  MinDepth: 0.5         # Minimum depth (meters)
+  MaxDepth: 3.5         # Maximum depth (meters)
+  
+# LiDAR Parameters
+LiDAR:
+  ScanDownsampleStep: 1  # Downsample scan (1=no downsample)
+  ScanRangeMin: 0.1     # Minimum scan range (meters)
+  ScanRangeMax: 25.0    # Maximum scan range (meters)
+  ScanVoxelSize: 0.05   # Voxel size for scan registration (meters)
+  
+# Memory Management
+Mem:
+  IncrementalMemory: true    # Online processing
+  RehearsalSimilarity: 0.45  # Rehearsal similarity threshold
+  ImagePreDecimation: 1      # Image decimation
+  ImagePostDecimation: 1     # Image post-decimation
+  
+# Optimization
+Optimizer:
+  Strategy: 1           # 0=TORO, 1=g2o, 2=GTSAM
+  Iterations: 100       # Maximum optimization iterations
+  Epsilon: 0.001       # Optimization precision
+  
+# Loop Closure
+RGBD/LoopClosureReextractFeatures: true
+RGBD/LocalRadius: 10
+RGBD/LinearUpdate: 0.1
+RGBD/AngularUpdate: 0.1
+RGBD/OptimizeFromGraphEnd: true
+
+# Real-time constraints
+Rtabmap:
+  DetectionRate: 1               # Detection rate (Hz)
+  TimeThr: 700                   # Maximum time allowed for neighbor search
+  MemoryThr: 0                   # Memory threshold
+  LoopThr: 0.11                 # Loop closure threshold
+  WeightFrom3D: true            # Use 3D information for transformation estimation
+  
+# Publishing options
+Publish:
+  LiveGrid: true                # Publish local grid
+  LiveGridCarrot: true         # Publish carrot on local grid
+  MapGraph: true               # Publish graph visualization
+  MapPath: true                # Publish robot path
+  MapOdom: true                # Publish odometry path
+  MapCloud: true               # Publish point cloud map

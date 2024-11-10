@@ -1,0 +1,96 @@
+-- Cartographer configuration for drone
+
+include "map_builder.lua"
+include "trajectory_builder.lua"
+
+options = {
+  map_builder = {
+    use_trajectory_builder_3d = true,
+    -- Set the grid size and range parameters for the map
+    map_frame = "map",
+    tracking_frame = "base_link",
+    published_frame = "base_link",
+    odom_frame = "odom",
+    provide_odom_frame = true,
+    publish_tracked_frame = false,
+    -- Optional: include a reference to the world frame
+    world_frame = "world",
+    -- Optional: use this for multi-robot setups
+    -- use_laser_scan_subscriber = true,
+  },
+
+  trajectory_builder = {
+    use_imu_data = true,  -- Use IMU data for better accuracy
+    use_laser_scan = true, -- Enable laser scan data processing
+    num_accumulated_range_data = 1,
+    min_range = 0.5,
+    max_range = 30.0,
+    -- Parameters for the optimization
+    adaptive_voxel_filter = {
+      max_length = 0.5,
+      min_num_points = 2,
+      max_range = 50.0,
+    },
+    -- Adjust for the drone's motion and parameters
+    motion_filter = {
+      max_time_seconds = 2.0,
+      max_distance_meters = 0.1,
+      max_angle_radians = math.rad(15),
+    },
+    -- Adjust for 3D SLAM
+    gravity = 9.81,
+    -- If using a fixed frame, you can set this to true
+    fixed_frame = false,
+    -- Add IMU settings
+    imu_gravity_time_constant = 1.0,
+    imu_acceleration_time_constant = 1.0,
+  },
+
+  -- Configure the sensors
+  sensor = {
+    rangefinder = {
+      type = "rangefinder",
+      rangefinder_topic = "/drone/rangefinder",
+      frame_id = "lidar_link",  -- Reference the correct frame for the lidar
+      use_laser_scan = true,
+      scan_topic = "/scan",
+    },
+    imu = {
+      type = "imu",
+      imu_topic = "/imu",
+      frame_id = "imu_link",  -- Reference the IMU frame
+      -- IMU settings (e.g., calibration)
+      gravity = 9.81,
+      -- Adjust as needed
+    },
+  },
+
+  -- Configure the poses and trajectory
+  pose_graph = {
+    optimization_problem = {
+      huber_scale = 1e2,
+      -- Use robust optimization for better convergence
+      optimization_problem = {
+        fixed_frame = "base_link",
+        optimize = true,
+      },
+    },
+    -- Other trajectory settings
+    constraints = {
+      max_num_iterations = 100,
+      max_convergence_distance = 1e-3,
+    },
+  },
+
+  -- Other global settings
+  map_subscriber = {
+    map_topic = "/map",
+    map_file = "cartographer_map.pbstream",
+  },
+  trajectory_subscriber = {
+    trajectory_topic = "/trajectory",
+  },
+}
+
+return options
+
